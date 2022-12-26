@@ -116,5 +116,8 @@ div.clothing_image {
 button {
     width: 150px;
     height: 40px;
+    padding: 0;
+    border: none;
+    background: none;
 
 }
