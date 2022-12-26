@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Random Alphet Generator</title>
+
+    <link rel="stylesheet" href="main.css" />
+    <script src="main.js"></script>
+</head>
+
+<body onload='viewSomething()'>
+    <header>
+        <h1>
+            Random Alphet Generator
+        </h1>
+        <h2>
+            By: Daniel Vo
+        </h2>
+    </header>
+
+    <div id="main_container"> main_container
+        <div id="button_container">
+            button_container
+            <button onclick="viewSomething()"><img src="./test images/button.png"></button>
+        </div>
+        <div id="left_side">
+            left_side
+            <div id="clothes_selector"> clothes_selector </div>    
+        </div>
+    
+        <div id="right_side"> right_side
+            <div id="clothes_container"> clothes_container
+                <div id="shirt_container" class="clothing_image">
+                    shirt_container
+                    <img id="image_shower1" onmouseenter="mousehold1()" onmouseleave="mouseholddone()" />
+                </div>
+
+                <div id="pants_container" class="clothing_image">
+                    pants_container
+                    <img id="image_shower2" onmouseenter="mousehold2()" onmouseleave="mouseholddone()" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
