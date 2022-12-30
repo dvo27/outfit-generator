@@ -28,23 +28,57 @@ pants_array = [
 
 let interval;
 
+// // getting a random shirt from shirts_array
+// function getRandomShirt() {
+//   random_index = Math.floor(Math.random() * shirts_array.length);  // get random index
+//   selected_image = shirts_array[random_index]  // get an image at the random index
+//   document.getElementById('image_shower1').src = `./shirts/${selected_image}`  // display image
+//   console.log(random_index)
+// }
+
+
+// // getting a random pant from pants_array
+// function getRandomPant() {
+//   random_index = Math.floor(Math.random() * pants_array.length);  // get random index
+//   selected_image = pants_array[random_index]  // get an image at the random index
+//   document.getElementById('image_shower2').src = `./pants/${selected_image}` // display image
+//   console.log(random_index)
+// }
+
+
+// global variable to store previously selected index
+let previousShirtIndex = null;
+
 // getting a random shirt from shirts_array
 function getRandomShirt() {
-  random_index = Math.floor(Math.random() * shirts_array.length);  // get random index
-  selected_image = shirts_array[random_index]  // get an image at the random index
-  document.getElementById('image_shower1').src = `./shirts/${selected_image}`  // display image
-  console.log(random_index)
+  let randomIndex = Math.floor(Math.random() * shirts_array.length);  // generate a random index
+
+  while (randomIndex === previousShirtIndex) {  // keep generating a new index until it is different from the previously selected index
+    randomIndex = Math.floor(Math.random() * shirts_array.length);
+  }
+
+  previousShirtIndex = randomIndex;  // update the previously selected index
+  let selectedImage = shirts_array[randomIndex];  // get an image at the random index
+  document.getElementById('image_shower1').src = `./shirts/${selectedImage}`;  // display image
+  console.log(randomIndex);
 }
 
+// global variable to store previously selected index
+let previousPantIndex = null;
 
 // getting a random pant from pants_array
 function getRandomPant() {
-  random_index = Math.floor(Math.random() * pants_array.length);  // get random index
-  selected_image = pants_array[random_index]  // get an image at the random index
-  document.getElementById('image_shower2').src = `./pants/${selected_image}` // display image
-  console.log(random_index)
-}
+  let randomIndex = Math.floor(Math.random() * pants_array.length);  // generate a random index
 
+  while (randomIndex === previousPantIndex) {  // keep generating a new index until it is different from the previously selected index
+    randomIndex = Math.floor(Math.random() * pants_array.length);
+  }
+  
+  previousPantIndex = randomIndex;  // update the previously selected index
+  let selectedImage = pants_array[randomIndex];  // get an image at the random index
+  document.getElementById('image_shower2').src = `./pants/${selectedImage}`; // display image
+  console.log(randomIndex);
+}
 
 function mousehold1() {  // on click-hold of shirts, go through selection of random shirts
   getRandomShirt()

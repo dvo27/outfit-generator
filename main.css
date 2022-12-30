@@ -27,60 +27,64 @@ body {
 div#main_container {
     display: flex;
     flex-direction: row; /* this will arrange the elements horizontally */
-    width: 100%; /* this will make the container fill the width of the viewport */
+
     border-style: solid;
     border-color: red;
     border-width: 10px;
+    height: 605px;
+    
 }
 
 div#button_container {
     display: flex;
     justify-content: center; /* this will center the button horizontally */
-    width: 100%; /* this will make the container fill the width of the parent element */
-    border-style: solid;
+    width: auto; /* this will make the container fill the width of the parent element */
     position: absolute;
-    left: 0;
-    right: 0;
-    width: 100%; /* this will make the button fill the width of the right_side element */
+    left: 0.5%;
+    right: 0.5%;
     z-index: 1;
 }
 
 div#left_side {
     border-style: solid;
     border-color: springgreen;
+    background-color: rgb(0, 225, 112);
+    border-width: 10px;
     display: flex;
     flex: 1;
     flex-direction: column;
     align-items: center;
+    position: relative;
 
     bottom: 0;
     left: 0;
-    margin-top: 2.5%;
-    width: auto;
+    margin-top: 45px;
 }
 
 /* clothes_selector container (left side)*/
 div#clothes_selector {
     display: flex;
     border-style: solid;
+    width: 50%;
+    background-color: rgb(0, 206, 103);;
+
 }
 
 div#right_side {
     border-style: solid;
     border-color: orchid;
     background-color: rgb(216, 132, 212);
+    border-width: 10px;
 
     display: flex;
     flex: 1;
     bottom: 0;
     right: 0;
-    margin-top: 2.5%;
+    margin-top: 45px;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     position: relative;
-    width: auto;
-    
-    height: 100%;
 }
 
 /* clothes_container container (right side) (contains button)*/
@@ -90,22 +94,18 @@ div#clothes_container {
     align-items: center;
     position: relative;
     width: 50%;
-    border-style: solid;
-    border-color: blue;
     background-color: rgb(212, 99, 207);
 }
 
 /* clothing image container */
 div#shirt_container {
-    border-style: solid;
-    border-color: rgb(255, 187, 0);
     background-color: rgb(207, 72, 201);
+    padding: 5%;
 }
 
 div#pants_container {
-    border-style: solid;
-    border-color: rgb(255, 187, 0);
     background-color: rgb(207, 72, 201);
+    padding: 5%;
 }
 
 
@@ -114,8 +114,8 @@ div.clothing_image {
 }
 
 button {
-    width: 150px;
-    height: 40px;
+    width: 200px;
+    height: 50px;
     padding: 0;
     border: none;
     background: none;
