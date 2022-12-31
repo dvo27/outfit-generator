@@ -25,29 +25,11 @@ pants_array = [
   'pants13.png'
 ]
 
-
 let interval;
-
-// // getting a random shirt from shirts_array
-// function getRandomShirt() {
-//   random_index = Math.floor(Math.random() * shirts_array.length);  // get random index
-//   selected_image = shirts_array[random_index]  // get an image at the random index
-//   document.getElementById('image_shower1').src = `./shirts/${selected_image}`  // display image
-//   console.log(random_index)
-// }
-
-
-// // getting a random pant from pants_array
-// function getRandomPant() {
-//   random_index = Math.floor(Math.random() * pants_array.length);  // get random index
-//   selected_image = pants_array[random_index]  // get an image at the random index
-//   document.getElementById('image_shower2').src = `./pants/${selected_image}` // display image
-//   console.log(random_index)
-// }
-
 
 // global variable to store previously selected index
 let previousShirtIndex = null;
+
 
 // getting a random shirt from shirts_array
 function getRandomShirt() {
@@ -63,8 +45,10 @@ function getRandomShirt() {
   console.log(randomIndex);
 }
 
+
 // global variable to store previously selected index
 let previousPantIndex = null;
+
 
 // getting a random pant from pants_array
 function getRandomPant() {
@@ -79,6 +63,7 @@ function getRandomPant() {
   document.getElementById('image_shower2').src = `./pants/${selectedImage}`; // display image
   console.log(randomIndex);
 }
+
 
 function mousehold1() {  // on click-hold of shirts, go through selection of random shirts
   getRandomShirt()
@@ -95,6 +80,7 @@ function mousehold2() {  // on click-hold of pants, go through selection of rand
 function mouseholddone() {  // on release of pants or shirts end scrolling thru selection
   clearInterval(interval)
 }
+
 
 var action = 1;
 

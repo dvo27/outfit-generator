@@ -23,22 +23,26 @@
 
     <div id="main_container">
         <div id="button_container">
-            <button onclick="viewSomething()"><img src="./test images/button.png"></button>
+            <button onclick="viewSomething()" id="random_button"><img src="./test images/button.png"></button>
         </div>
         <div id="left_side">
-
-            <div id="clothes_selector"> clothes_selector </div>
+            <div id="clothes_selector">
+                <div id="file_input">
+                    <label for="shirt_file">Upload your shirt file here:</label>
+                    <input type="file" id="shirt_file" name="shirt_file" webkitdirectory mozdirectory><br>
+                    <label for="pants_file">Upload your pants file here:</label>
+                    <input type="file" id="pants_file" name="pants_file" webkitdirectory mozdirectory><br>
+                    <input type="submit">
+                </div>
+            </div>
         </div>
 
         <div id="right_side">
             <div id="clothes_container">
                 <div id="shirt_container" class="clothing_image">
-
                     <img id="image_shower1" onmouseenter="mousehold1()" onmouseleave="mouseholddone()" />
                 </div>
-
                 <div id="pants_container" class="clothing_image">
-
                     <img id="image_shower2" onmouseenter="mousehold2()" onmouseleave="mouseholddone()" />
                 </div>
             </div>
