@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Alphet Generator</title>
 
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="main.js"></script>
 </head>
 
-<body onload='viewSomething()'>
+<body onload='viewSomething()' onload="">
     <header>
         <h1>
             Random Alphet Generator
@@ -27,13 +27,7 @@
         </div>
         <div id="left_side">
             <div id="clothes_selector">
-                <div id="file_input">
-                    <label for="shirt_file">Upload your shirt file here:</label>
-                    <input type="file" id="shirt_file" name="shirt_file" webkitdirectory mozdirectory><br>
-                    <label for="pants_file">Upload your pants file here:</label>
-                    <input type="file" id="pants_file" name="pants_file" webkitdirectory mozdirectory><br>
-                    <input type="submit">
-                </div>
+                <input type="file" id="shirt_input" webkitdirectory mozdirectory/>
             </div>
         </div>
 

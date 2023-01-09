@@ -1,4 +1,4 @@
-shirts_array = [
+let shirts_array = [
   'shirt1.png',
   'shirt2.png',
   'shirt3.png',
@@ -9,22 +9,17 @@ shirts_array = [
   'shirt8.png'
 ]
 
-pants_array = [
-  'pants1.png',
-  'pants2.png',
-  'pants3.png',
-  'pants4.png',
-  'pants5.png',
-  'pants6.png',
-  'pants7.png',
-  'pants8.png',
-  'pants9.png',
-  'pants10.png',
-  'pants11.png',
-  'pants12.png',
-  'pants13.png'
+let pants_array = [
+  'pants1.png',  'pants10.png',
+  'pants11.png', 'pants12.png',
+  'pants13.png', 'pants2.png',
+  'pants3.png',  'pants4.png',
+  'pants5.png',  'pants6.png',
+  'pants7.png',  'pants8.png',
+  'pants9.png'
 ]
 
+// main script starts here:
 let interval;
 
 // global variable to store previously selected index
@@ -34,15 +29,8 @@ let previousShirtIndex = null;
 // getting a random shirt from shirts_array
 function getRandomShirt() {
   let randomIndex = Math.floor(Math.random() * shirts_array.length);  // generate a random index
-
-  while (randomIndex === previousShirtIndex) {  // keep generating a new index until it is different from the previously selected index
-    randomIndex = Math.floor(Math.random() * shirts_array.length);
-  }
-
-  previousShirtIndex = randomIndex;  // update the previously selected index
   let selectedImage = shirts_array[randomIndex];  // get an image at the random index
   document.getElementById('image_shower1').src = `./shirts/${selectedImage}`;  // display image
-  console.log(randomIndex);
 }
 
 
@@ -53,15 +41,8 @@ let previousPantIndex = null;
 // getting a random pant from pants_array
 function getRandomPant() {
   let randomIndex = Math.floor(Math.random() * pants_array.length);  // generate a random index
-
-  while (randomIndex === previousPantIndex) {  // keep generating a new index until it is different from the previously selected index
-    randomIndex = Math.floor(Math.random() * pants_array.length);
-  }
-  
-  previousPantIndex = randomIndex;  // update the previously selected index
   let selectedImage = pants_array[randomIndex];  // get an image at the random index
-  document.getElementById('image_shower2').src = `./pants/${selectedImage}`; // display image
-  console.log(randomIndex);
+  document.getElementById('image_shower2').src = `./pants/${selectedImage}`;  // display image
 }
 
 
@@ -84,8 +65,6 @@ function mouseholddone() {  // on release of pants or shirts end scrolling thru 
 
 var action = 1;
 
-$("input").on("click", viewSomething);
-
 function viewSomething() {
   if (action == 1) {
     getRandomShirt();
@@ -96,3 +75,5 @@ function viewSomething() {
     action = 1;
   }
 }
+
+const file_input = document.getElementById('shirt_input')
