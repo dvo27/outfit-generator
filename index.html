@@ -27,21 +27,29 @@
         </div>
         <div id="left_side">
             <div id="clothes_selector">
-                <input type="file" id="shirt_input" webkitdirectory mozdirectory>
-                <input type="file" id="pants_input" webkitdirectory mozdirectory>
+                <label for="shirt_input" class="file-input-label">
+                    Choose Shirt:
+                    <input type="file" id="shirt_input" webkitdirectory mozdirectory>
+                  
+                </label>
+                
+                <label for="pants_input" class="file-input-label">
+                    Choose Pants:
+                    <input type="file" id="pants_input" webkitdirectory mozdirectory>
+                </label>
+              </div>
+            <div id="right_side">
+                <div id="clothes_container">
+                    <div id="shirt_container" class="clothing_image">
+                        <img id="image_shower1" onmouseenter="mousehold1()" onmouseleave="mouseholddone()" />
+                    </div>
+                    <div id="pants_container" class="clothing_image">
+                        <img id="image_shower2" onmouseenter="mousehold2()" onmouseleave="mouseholddone()" />
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="right_side">
-            <div id="clothes_container">
-                <div id="shirt_container" class="clothing_image">
-                    <img id="image_shower1" onmouseenter="mousehold1()" onmouseleave="mouseholddone()" />
-                </div>
-                <div id="pants_container" class="clothing_image">
-                    <img id="image_shower2" onmouseenter="mousehold2()" onmouseleave="mouseholddone()" />
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 

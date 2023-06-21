@@ -31,6 +31,7 @@ div#main_container {
     border-color: red;
     border-width: 10px;
     height: 80vh;
+    width: 50%;
 
 }
 
@@ -82,7 +83,7 @@ div#right_side {
     flex: 1;
     bottom: 0;
     right: 0;
-    margin-top: 45px;
+    margin-top: 20px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -95,21 +96,24 @@ div#clothes_container {
     flex-direction: column;
     align-items: center;
     position: relative;
-    width: 50%;
+    width: 30%;
     background-color: rgb(212, 99, 207);
     padding-top: 2%;
     padding-bottom: 2%;
-}
+   }
 
 /* clothing image container */
 div#shirt_container {
     background-color: rgb(207, 72, 201);
+    width: 80%;
     padding: 5%;
 }
 
 div#pants_container {
     background-color: rgb(207, 72, 201);
+    width: 80%;
     padding: 5%;
+    max-height: 300px;
 }
 
 
