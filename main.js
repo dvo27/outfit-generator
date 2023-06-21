@@ -1,13 +1,4 @@
-let shirts_array = [
-  'shirt1.png',
-  'shirt2.png',
-  'shirt3.png',
-  'shirt4.png',
-  'shirt5.png',
-  'shirt6.png',
-  'shirt7.png',
-  'shirt8.png'
-]
+let shirts_array = []
 
 let pants_array = [
   'pants1.png',  'pants10.png',
@@ -18,6 +9,24 @@ let pants_array = [
   'pants7.png',  'pants8.png',
   'pants9.png'
 ]
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  const file_input = document.getElementById('shirt_input');
+  if (file_input) {
+    file_input.addEventListener('change', handleFiles, false);
+  }
+});
+
+function handleFiles() {
+  const fileList = this.files
+
+  for (const file of fileList) {
+    shirts_array.append(file.name)
+  }
+
+  console.log(shirts_array)
+
+};
 
 // main script starts here:
 let interval;
@@ -76,4 +85,4 @@ function viewSomething() {
   }
 }
 
-const file_input = document.getElementById('shirt_input')
+
