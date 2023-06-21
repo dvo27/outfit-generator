@@ -1,31 +1,24 @@
 let shirts_array = []
-
-let pants_array = [
-  'pants1.png',  'pants10.png',
-  'pants11.png', 'pants12.png',
-  'pants13.png', 'pants2.png',
-  'pants3.png',  'pants4.png',
-  'pants5.png',  'pants6.png',
-  'pants7.png',  'pants8.png',
-  'pants9.png'
-]
+let pants_array = []
 
 window.addEventListener('DOMContentLoaded', (event) => {
-  const file_input = document.getElementById('shirt_input');
-  if (file_input) {
-    file_input.addEventListener('change', handleFiles, false);
+  const shirt_input = document.getElementById('shirt_input');
+  const pants_input = document.getElementById('pants_input');
+
+  if (shirt_input && pants_input) {
+    shirt_input.addEventListener('change', () => handleFiles(shirts_array, 'shirt_input'), false)
+    pants_input.addEventListener('change', () => handleFiles(pants_array, 'pants_input'), false)
+
   }
 });
 
-function handleFiles() {
-  const fileList = this.files
+function handleFiles(array, inputId) {
+  const fileList = document.getElementById(inputId).files;
 
   for (const file of fileList) {
-    shirts_array.append(file.name)
+    console.log(file)
+    array.push(file.name)
   }
-
-  console.log(shirts_array)
-
 };
 
 // main script starts here:
@@ -73,7 +66,6 @@ function mouseholddone() {  // on release of pants or shirts end scrolling thru 
 
 
 var action = 1;
-
 function viewSomething() {
   if (action == 1) {
     getRandomShirt();
