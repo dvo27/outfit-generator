@@ -24,7 +24,8 @@ body {
 
 label {
     font-family: Arial, Helvetica, sans-serif;
-    margin: 3;
+    max-width: 20vw;
+    margin: auto;
 }
 
 /* main parent container */
@@ -33,9 +34,9 @@ div#main_container {
     flex-direction: row;
     border-width: 10px;
     height: 85vh;
-    width: 50%;
+    max-width: 50vw;
 
-}
+}   
 
 div#button_container {
     display: flex;
@@ -56,11 +57,8 @@ div#left_side {
     flex: 1;
     flex-direction: column;
     align-items: center;
-    position: relative;
-
-    bottom: 0;
-    left: 0;
     margin-top: 51px;
+    max-width: 50vw;
 }
 
 /* clothes_selector container (left side) */
@@ -71,6 +69,7 @@ div#clothes_selector {
     background-color: springgreen;
     align-items: center;
     margin-top: 8px;
+    max-width: 50vw;
 }
 
 div#right_side {
@@ -85,8 +84,8 @@ div#right_side {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    position: relative;
-    max-height: 100%;
+    max-height: 65vh;
+    max-width: 39vw;
 }
 
 /* clothes_container container*/
@@ -101,7 +100,7 @@ div#clothes_container {
     padding-bottom: 15px;
     justify-content: center;
     align-content: center;
-
+    max-width: 50vw;
    }
 
 /* clothing image container */

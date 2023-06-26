@@ -17,10 +17,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
 // iterates through the given directory and for each file in there, append each file's name to the given array
 function handleFiles(array, inputId) {
   const fileList = document.getElementById(inputId).files;
+  let invalidFiles = []
 
   for (const file of fileList) {
-    array.push(file.name)
+    if (['image/jpg', 'image/png', 'image/jpeg'].includes(file.type)) {
+      array.push(file.name)
+    } else {
+      invalidFiles.push(file.name)
+    }
   }
+
+  if (invalidFiles.length > 0) {
+    window.alert(`Directory contained the following invalid files: \n(${invalidFiles})\n\nPlease upload a folder containing only .jpg, .jpeg, or .png`)
+  }
+
 };
 
 // main script starts here:
