@@ -1,6 +1,8 @@
+// intializing the arrays of shirts and pants names
 let shirts_array = []
 let pants_array = []
 
+// handling when there is a directory uploaded then call handleFiles function
 window.addEventListener('DOMContentLoaded', (event) => {
   const shirt_input = document.getElementById('shirt_input');
   const pants_input = document.getElementById('pants_input');
@@ -12,11 +14,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
   }
 });
 
+// iterates through the given directory and for each file in there, append each file's name to the given array
 function handleFiles(array, inputId) {
   const fileList = document.getElementById(inputId).files;
 
   for (const file of fileList) {
-    console.log(file)
     array.push(file.name)
   }
 };
@@ -67,6 +69,7 @@ function mouseholddone() {  // on release of pants or shirts end scrolling thru 
 
 var action = 1;
 function viewSomething() {
+  window.alert('After adding your own shirt and pants folders to the project files, please select them individually below to get started!')
   if (action == 1) {
     getRandomShirt();
     getRandomPant();

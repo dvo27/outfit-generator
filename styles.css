@@ -22,15 +22,19 @@ body {
     align-items: center; /* this will center the elements horizontally */
 }
 
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 3;
+}
+
 /* main parent container */
 div#main_container {
     display: flex;
-    flex-direction: row; /* this will arrange the elements horizontally */
-
+    flex-direction: row;
     border-style: solid;
     border-color: red;
     border-width: 10px;
-    height: 80vh;
+    height: 85vh;
     width: 50%;
 
 }
@@ -61,16 +65,14 @@ div#left_side {
     margin-top: 45px;
 }
 
-/* clothes_selector container (left side)*/
+/* clothes_selector container (left side) */
 div#clothes_selector {
     display: flex;
     justify-content: center;
-    border-style: solid;
     width: 100%;
-    background-color: rgb(0, 206, 103);
+    background-color: rgb(0, 225, 112);
     align-items: center;
-
-
+    margin-top: 8px;
 }
 
 div#right_side {
@@ -81,44 +83,47 @@ div#right_side {
 
     display: flex;
     flex: 1;
-    bottom: 0;
-    right: 0;
-    margin-top: 20px;
+    margin-top: 6px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     position: relative;
+    max-height: 100%;
 }
 
-/* clothes_container container (right side) (contains button)*/
+/* clothes_container container*/
 div#clothes_container {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    width: 30%;
-    background-color: rgb(212, 99, 207);
-    padding-top: 2%;
-    padding-bottom: 2%;
+    max-height: inherit;
+    width: 90%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    justify-content: center;
+    align-content: center;
+
    }
 
 /* clothing image container */
 div#shirt_container {
-    background-color: rgb(207, 72, 201);
-    width: 80%;
+    max-height: 50%;
     padding: 5%;
 }
 
 div#pants_container {
-    background-color: rgb(207, 72, 201);
-    width: 80%;
+    max-height: 50%;
     padding: 5%;
-    max-height: 300px;
 }
 
 
 div.clothing_image {
-    width: 45%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    max-width: 30%;
 }
 
 button#random_button {
@@ -130,6 +135,3 @@ button#random_button {
 
 }
 
-label {
-    font-family: Arial, Helvetica, sans-serif;    
-}
