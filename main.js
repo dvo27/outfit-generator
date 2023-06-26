@@ -69,7 +69,6 @@ function mouseholddone() {  // on release of pants or shirts end scrolling thru 
 
 var action = 1;
 function viewSomething() {
-  window.alert('After adding your own shirt and pants folders to the project files, please select them individually below to get started!')
   if (action == 1) {
     getRandomShirt();
     getRandomPant();
@@ -78,6 +77,10 @@ function viewSomething() {
     mouseholddone();
     action = 1;
   }
+}
+
+function openingMessage(){
+  window.alert('After adding your own shirt and pants folders to the project files, please select them individually below to get started!')
 }
 
 
