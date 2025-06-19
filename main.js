@@ -28,7 +28,8 @@ function handleFiles(array, inputId) {
   }
 
   if (invalidFiles.length > 0) {
-    window.alert(`Directory contained the following invalid files: \n(${invalidFiles})\n\nPlease upload a folder containing only .jpg, .jpeg, or .png`)
+    window.alert(`Directory contained the following invalid files: 
+    \n(${invalidFiles})\n\nPlease upload a folder containing only .jpg, .jpeg, or .png`)
   }
 
 };
