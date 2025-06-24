@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Alphet Generator</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js"></script>
+</head>
+
+<body onload='viewSomething(); openingMessage()' onload="">
+    <header>
+        <h1>
+            Random Alphet Generator
+        </h1>
+        <h2>
+            By: Daniel Vo
+        </h2>
+    </header>
+
+    <div id="main_container">
+        <div id="button_container">
+            <button onclick="viewSomething()" id="random_button"><img src="./button/button.png"></button>
+        </div>
+        <div id="left_side">
+            <div id="clothes_selector">
+                <label for="shirt_input" style="width: 250px; margin-left: 20px;" class="file-input-label">
+                    Choose Shirt:
+                    <input type="file" id="shirt_input" webkitdirectory mozdirectory>
+                </label>
+                <label for="pants_input" class="file-input-label" style="margin-left: 20px;margin-right: 30px;">
+                    Choose Pants:
+                    <input type="file" id="pants_input" webkitdirectory mozdirectory>
+                </label>
+            </div>
+            <div id="right_side" style="width: 676px;">
+                <div id="clothes_container">
+                    <div id="shirt_container" class="clothing_image">
+                        <img id="image_shower1" onmouseenter="mousehold1()" onmouseleave="mouseholddone()" />
+                    </div>
+                    <div id="pants_container" class="clothing_image">
+                        <img id="image_shower2" onmouseenter="mousehold2()" onmouseleave="mouseholddone()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
