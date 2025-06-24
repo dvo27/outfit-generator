@@ -9,15 +9,24 @@ import { useDropzone } from "react-dropzone";
 // - Implement changing shirts and pants functionality
 
 export default function Home() {
-  const [shirts, inputShirts] = useState<File[]>([]);
-  const [pants, inputPants] = useState<File[]>([]);
+  const [shirts, inputShirts] = useState<{ file: File; url: string }[]>([]);
+  const [pants, inputPants] = useState<{ file: File; url: string }[]>([]);
 
   const onShirtDrop = useCallback((acceptedFiles: File[]) => {
-    inputShirts(prev => [...prev, ...acceptedFiles]);
+    // Keep track of the files and their URLs so we don't redisplay images when user refreshes page
+    const filesWithURLs = acceptedFiles.map(file => ({
+      file,
+      url: URL.createObjectURL(file)
+    }));
+    inputShirts(prev => [...prev, ...filesWithURLs]);
   }, []);
 
   const onPantsDrop = useCallback((acceptedFiles: File[]) => {
-    inputPants(prev => [...prev, ...acceptedFiles]);
+    const filesWithURLs = acceptedFiles.map(file => ({
+      file,
+      url: URL.createObjectURL(file)
+    }));
+    inputPants(prev => [...prev, ...filesWithURLs]);
   }, []);
 
   // Shirt Dropzone
@@ -77,13 +86,16 @@ export default function Home() {
 
       {/* Main Container with left and right side columns*/}
       <div className="main_container flex mb-4">
-        <div className="left_side w-1/2 border-2 border-red-500 flex flex-col items-center">
+
+        {/* Left Side */}
+        <div className="left_side w-1/2 border-2 border-red-500 flex flex-col items-center text-center">
+
           {/* Clothes Upload/Selector Section */}
           <div className="clothes_selector flex flex-col gap-4 w-full px-4">
             <div className="shirt_selector">
               {/* Shirt Dropzone */}
-              {
-                // If no shirts have been uploaded, show dropzone
+
+              {  // If no shirts have been uploaded, show dropzone
                 shirts.length === 0 ? (
                   <>
                     <label htmlFor="shirt_input" className="file-input-label">
@@ -94,8 +106,8 @@ export default function Home() {
                       <p>Drag and drop shirt files here, or click to select files</p>
                     </div>
                   </>
-                ) : (
-                  // If shirts have been uploaded, show their previews:
+
+                ) : (  // If shirts have been uploaded, show their previews:
                   <>
                     <label htmlFor="shirt_input" className="file-input-label">
                       Select Shirt
@@ -106,7 +118,7 @@ export default function Home() {
                         {
                           shirts.map((shirt, index) => (
                             <div key={index}>
-                              <Image src={URL.createObjectURL(shirt)} alt="Shirt" width={100} height={100} />
+                              <Image src={shirt.url} alt="Shirt" width={100} height={100} />
                             </div>
                           ))
                         }
@@ -143,7 +155,7 @@ export default function Home() {
                         {
                           pants.map((pants, index) => (
                             <div key={index}>
-                              <Image src={URL.createObjectURL(pants)} alt="Pants" width={100} height={100} />
+                              <Image src={pants.url} alt="Pants" width={100} height={100} />
                             </div>
                           ))
                         }
