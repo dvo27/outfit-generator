@@ -4,14 +4,42 @@ import { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 // TODO:
-// - Once user uploads shirts/pants, show them in the clothes container
+// - Display a random outfit after user uploads both shirts and pants
 // - Implement random button functionality
 // - Implement changing shirts and pants functionality
+// - Add a way to remove shirts and pants
+// - Add a way for users to select a shirt and pants from the list of uploaded files
+// - Add a way for users to save generated outfits to a database
+// - Change site font
 
 export default function Home() {
   const [shirts, inputShirts] = useState<{ file: File; url: string }[]>([]);
   const [pants, inputPants] = useState<{ file: File; url: string }[]>([]);
+  const [displayedShirt, setDisplayedShirt] = useState<{ file: File; url: string } | null>(null);
+  const [displayedPants, setDisplayedPants] = useState<{ file: File; url: string } | null>(null);
 
+  function randomizeOutfit() {
+    // Check if shirts and pants were uploaded
+    if (shirts.length > 0 && pants.length > 0) {
+      // Randomly pick an index from shirts/pants array
+      const shirtIndex = Math.floor(Math.random() * shirts.length);
+      const pantsIndex = Math.floor(Math.random() * pants.length);
+
+      // Call setDisplayedShirt and setDisplayedPants
+      setDisplayedShirt(shirts[shirtIndex]);
+      setDisplayedPants(pants[pantsIndex]);
+    }
+  }
+
+  useEffect(() => {
+    if (shirts.length > 0 && pants.length > 0) {
+      console.log("shirts and pants both uploaded")
+      randomizeOutfit();
+    }
+  }, [shirts, pants]);
+
+
+  // Shirt Dropzone Logic
   const onShirtDrop = useCallback((acceptedFiles: File[]) => {
     // Keep track of the files and their URLs so we don't redisplay images when user refreshes page
     const filesWithURLs = acceptedFiles.map(file => ({
@@ -21,6 +49,7 @@ export default function Home() {
     inputShirts(prev => [...prev, ...filesWithURLs]);
   }, []);
 
+  // Pants Dropzone Logic
   const onPantsDrop = useCallback((acceptedFiles: File[]) => {
     const filesWithURLs = acceptedFiles.map(file => ({
       file,
@@ -29,7 +58,7 @@ export default function Home() {
     inputPants(prev => [...prev, ...filesWithURLs]);
   }, []);
 
-  // Shirt Dropzone
+  // Shirt Dropzone Settings
   const { getRootProps: getShirtRootProps,
     getInputProps: getShirtInputProps,
     isDragActive: isDragActiveShirt } = useDropzone({
@@ -46,7 +75,7 @@ export default function Home() {
       },
     });
 
-  // Pants Dropzone
+  // Pants Dropzone Settings
   const { getRootProps: getPantsRootProps,
     getInputProps: getPantsInputProps,
     isDragActive: isDragActivePants } = useDropzone({
@@ -77,9 +106,7 @@ export default function Home() {
 
       {/* Button Container */}
       <div className="button_container flex justify-center mb-4">
-        <button id="random_button" onClick={() => {
-          console.log("Random");
-        }}>
+        <button id="random_button" onClick={randomizeOutfit}>
           <Image src="/button.png" alt="Random" width={100} height={100} />
         </button>
       </div>
@@ -172,10 +199,18 @@ export default function Home() {
         <div className="right_side w-1/2 border-2 border-blue-500 flex flex-col items-center">
           <div className="clothes_container">
             <div className="shirt_container">
-              <h1>Shirt</h1>
+              {displayedShirt ? (
+                <Image src={displayedShirt.url} alt="Random Shirt" width={200} height={200} />
+              ) : (
+                <h1>Shirt</h1>
+              )}
             </div>
             <div className="pants_container">
-              <h1>Pants</h1>
+              {displayedPants ? (
+                <Image src={displayedPants.url} alt="Random Pants" width={200} height={200} />
+              ) : (
+                <h1>Pants</h1>
+              )}
             </div>
           </div>
         </div>
