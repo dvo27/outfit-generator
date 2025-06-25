@@ -9,7 +9,7 @@ import { url } from "inspector";
 // TODO:
 
 // High Priority:
-// - Make animated dropdown alert to show successful upload of shirts/pants
+// - Progress/Loading animation while uploading files
 // - Implement changing shirts and pants functionality
 // - Change site font
 // - Add a way for users to add new shirts and pants once initial upload
@@ -33,12 +33,20 @@ export default function Home() {
   const [displayedPants, setDisplayedPants] = useState<{ file: File; url: string } | null>(null);
   const [showAlert, setShowAlert] = useState(false);
 
+  function selectShirt(selectedShirt: { file: File; url: string }) {
+    setDisplayedShirt(selectedShirt);
+  }
+
+  function selectPants(selectedPants: { file: File; url: string }) {
+    setDisplayedPants(selectedPants);
+  }
+
+
   // Function to trigger alert of a successful upload
   function triggerAlert() {
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 2000)
   }
-
 
   // Function to generate random outfits
   function randomizeOutfit() {
@@ -60,7 +68,6 @@ export default function Home() {
       randomizeOutfit();
     }
   }, [shirts, pants]);
-
 
   // Shirt Dropzone Logic
   const onShirtDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -152,7 +159,7 @@ export default function Home() {
       {/* Header */}
       <header className="flex flex-col items-center mb-4">
         <h1>
-          Random Alphet Generator
+          Alphet Generator
         </h1>
         <h2>
           By: Daniel Vo
@@ -166,6 +173,7 @@ export default function Home() {
         </button>
       </div>
 
+      {/* Successful Upload Alert Box*/}
       <AnimatePresence>
         {showAlert && (
           <motion.div
@@ -214,10 +222,14 @@ export default function Home() {
                     </label>
                     <div className="h-72 w-full overflow-y-auto">
                       {/* Grid of shirts */}
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-3 gap-4 place-items-center">
                         {
                           shirts.map((shirt, index) => (
-                            <div key={index}>
+                            <div
+                              key={index}
+                              onClick={() => selectShirt(shirt)}
+                              className="cursor-pointer hover:scale-110 transition-all duration-200"
+                            >
                               <Image src={shirt.url} alt="Shirt" width={100} height={100} />
                             </div>
                           ))
@@ -251,10 +263,14 @@ export default function Home() {
                     </label>
                     <div className="h-72 w-full overflow-y-auto">
                       {/* Grid of pants */}
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-3 gap-4 place-items-center">
                         {
                           pants.map((pants, index) => (
-                            <div key={index}>
+                            <div
+                              key={index}
+                              onClick={() => selectPants(pants)}
+                              className="cursor-pointer hover:opacity-80 hover:scale-110 transition-all duration-200"
+                            >
                               <Image src={pants.url} alt="Pants" width={100} height={100} />
                             </div>
                           ))
