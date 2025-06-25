@@ -1,11 +1,15 @@
 'use client';
-import Image from "next/image";
 import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
+import imageCompression from "browser-image-compression";
 import { useDropzone } from "react-dropzone";
+import { motion, AnimatePresence, acceleratedValues } from "framer-motion";
+import { url } from "inspector";
 
 // TODO:
 
 // High Priority:
+// - Make animated dropdown alert to show successful upload of shirts/pants
 // - Implement changing shirts and pants functionality
 // - Change site font
 // - Add a way for users to add new shirts and pants once initial upload
@@ -13,6 +17,8 @@ import { useDropzone } from "react-dropzone";
 // - Add a way for users to save generated outfits to a database
 
 // Medium Priority:
+// - Add an opening animation that presents my name and project title that has bottom and 
+//   top half sliding up revealing the main page
 // - Add a way to remove shirts and pants
 // - Add outfit suggestions depending on weather -- AI
 
@@ -25,7 +31,16 @@ export default function Home() {
   const [pants, inputPants] = useState<{ file: File; url: string }[]>([]);
   const [displayedShirt, setDisplayedShirt] = useState<{ file: File; url: string } | null>(null);
   const [displayedPants, setDisplayedPants] = useState<{ file: File; url: string } | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
 
+  // Function to trigger alert of a successful upload
+  function triggerAlert() {
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2000)
+  }
+
+
+  // Function to generate random outfits
   function randomizeOutfit() {
     // Check if shirts and pants were uploaded
     if (shirts.length > 0 && pants.length > 0) {
@@ -39,31 +54,63 @@ export default function Home() {
     }
   }
 
+  // When shirts and pants have been uploaded, post a randomly generated outfit on clothes container
   useEffect(() => {
     if (shirts.length > 0 && pants.length > 0) {
-      console.log("shirts and pants both uploaded")
       randomizeOutfit();
     }
   }, [shirts, pants]);
 
 
   // Shirt Dropzone Logic
-  const onShirtDrop = useCallback((acceptedFiles: File[]) => {
+  const onShirtDrop = useCallback(async (acceptedFiles: File[]) => {
+    // Compress images using browser-image-compression library on upload
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
+    };
+
     // Keep track of the files and their URLs so we don't redisplay images when user refreshes page
-    const filesWithURLs = acceptedFiles.map(file => ({
-      file,
-      url: URL.createObjectURL(file)
-    }));
+    // Create files and their URLs and put into inputPants array
+    const filesWithURLs = await Promise.all(
+      acceptedFiles.map(async (file) => {
+        const compressedFile = await imageCompression(file, options);
+        return {
+          file: compressedFile,
+          url: URL.createObjectURL(compressedFile),
+        };
+      })
+    );
     inputShirts(prev => [...prev, ...filesWithURLs]);
+
+    // Triggers popup alert of successful upload
+    triggerAlert()
   }, []);
 
   // Pants Dropzone Logic
-  const onPantsDrop = useCallback((acceptedFiles: File[]) => {
-    const filesWithURLs = acceptedFiles.map(file => ({
-      file,
-      url: URL.createObjectURL(file)
-    }));
+  const onPantsDrop = useCallback(async (acceptedFiles: File[]) => {
+    // Compress images using browser-image-compression library on upload
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
+    };
+
+    // Create files and their URLs and put into inputPants array
+    const filesWithURLs = await Promise.all(
+      acceptedFiles.map(async (file) => {
+        const compressedFile = await imageCompression(file, options);
+        return {
+          file: compressedFile,
+          url: URL.createObjectURL(compressedFile),
+        };
+      })
+    );
     inputPants(prev => [...prev, ...filesWithURLs]);
+
+    // Triggers popup alert of successful upload
+    triggerAlert()
   }, []);
 
   // Shirt Dropzone Settings
@@ -118,6 +165,24 @@ export default function Home() {
           <Image src="/button.png" alt="Random" width={100} height={100} />
         </button>
       </div>
+
+      <AnimatePresence>
+        {showAlert && (
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="text-center py-4 lg:px-4 fixed top-4 left-1/2 -translate-x-1/2 z-50"
+          >
+            <div className="p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-full flex inline-flex" role="alert">
+              <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
+              <span className="font-semibold mr-2 text-left flex-auto">Upload successful!</span>
+              <svg className="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z" /></svg>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Container with left and right side columns*/}
       <div className="main_container flex mb-4">
@@ -212,26 +277,26 @@ export default function Home() {
               <>
                 <div className="shirt_container">
                   {displayedShirt ? (
-                    <Image src={displayedShirt.url} alt="Random Shirt" width={200} height={200} />
+                    <Image src={displayedShirt.url} alt="Randomly Selected Shirt" width={200} height={200} />
                   ) : (
                     <h1>Shirt</h1>
                   )}
                 </div>
                 <div className="pants_container">
                   {displayedPants ? (
-                    <Image src={displayedPants.url} alt="Random Pants" width={200} height={200} />
+                    <Image src={displayedPants.url} alt="Randomly Selected Pants" width={200} height={200} />
                   ) : (
                     <h1>Pants</h1>
                   )}
                 </div>
               </>
-             ) : (
+            ) : (
               <>
-              <div className="text-center items-center">
-                <h1>Upload your shirts and pants to have them appear here</h1>
-              </div>
+                <div className="text-center items-center">
+                  <h1>Upload your shirts and pants to have them appear here</h1>
+                </div>
               </>
-            
+
             )}
           </div>
         </div>
