@@ -4,13 +4,21 @@ import { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 // TODO:
-// - Display a random outfit after user uploads both shirts and pants
-// - Implement random button functionality
+
+// High Priority:
 // - Implement changing shirts and pants functionality
-// - Add a way to remove shirts and pants
+// - Change site font
+// - Add a way for users to add new shirts and pants once initial upload
 // - Add a way for users to select a shirt and pants from the list of uploaded files
 // - Add a way for users to save generated outfits to a database
-// - Change site font
+
+// Medium Priority:
+// - Add a way to remove shirts and pants
+// - Add outfit suggestions depending on weather -- AI
+
+// Potentials:
+// - Schedule outfits for a travel duration?
+// - Add onboarding feature?
 
 export default function Home() {
   const [shirts, inputShirts] = useState<{ file: File; url: string }[]>([]);
@@ -195,23 +203,36 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Clothes Container Section */}
+        {/* Right Side */}
         <div className="right_side w-1/2 border-2 border-blue-500 flex flex-col items-center">
+
+          {/* Clothes Display Section */}
           <div className="clothes_container">
-            <div className="shirt_container">
-              {displayedShirt ? (
-                <Image src={displayedShirt.url} alt="Random Shirt" width={200} height={200} />
-              ) : (
-                <h1>Shirt</h1>
-              )}
-            </div>
-            <div className="pants_container">
-              {displayedPants ? (
-                <Image src={displayedPants.url} alt="Random Pants" width={200} height={200} />
-              ) : (
-                <h1>Pants</h1>
-              )}
-            </div>
+            {displayedPants && displayedShirt ? (
+              <>
+                <div className="shirt_container">
+                  {displayedShirt ? (
+                    <Image src={displayedShirt.url} alt="Random Shirt" width={200} height={200} />
+                  ) : (
+                    <h1>Shirt</h1>
+                  )}
+                </div>
+                <div className="pants_container">
+                  {displayedPants ? (
+                    <Image src={displayedPants.url} alt="Random Pants" width={200} height={200} />
+                  ) : (
+                    <h1>Pants</h1>
+                  )}
+                </div>
+              </>
+             ) : (
+              <>
+              <div className="text-center items-center">
+                <h1>Upload your shirts and pants to have them appear here</h1>
+              </div>
+              </>
+            
+            )}
           </div>
         </div>
 
