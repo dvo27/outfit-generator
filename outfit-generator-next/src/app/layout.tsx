@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Outfit Generator",
   description: "Generate outfits from your own clothes",
+  icons: {
+    icon: '/logo.jpeg'
+  }
 };
 
 export default function RootLayout({
