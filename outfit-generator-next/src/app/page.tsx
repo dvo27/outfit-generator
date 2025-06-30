@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
 import { useDropzone } from "react-dropzone";
@@ -13,7 +13,6 @@ import { url } from "inspector";
 // - Implement changing shirts and pants functionality
 // - Change site font
 // - Add a way for users to add new shirts and pants once initial upload
-// - Add a way for users to select a shirt and pants from the list of uploaded files
 // - Add a way for users to save generated outfits to a database
 
 // Medium Priority:
@@ -32,15 +31,41 @@ export default function Home() {
   const [displayedShirt, setDisplayedShirt] = useState<{ file: File; url: string } | null>(null);
   const [displayedPants, setDisplayedPants] = useState<{ file: File; url: string } | null>(null);
   const [showAlert, setShowAlert] = useState(false);
+  const addMoreShirtInputRef = useRef<HTMLInputElement>(null);
+  const addMorePantsInputRef = useRef<HTMLInputElement>(null);
 
+  function handleAddMoreShirtsClick() {
+    addMoreShirtInputRef.current?.click();
+  }
+
+  function handleAddMorePantsClick() {
+    addMorePantsInputRef.current?.click();
+  }
+
+  async function handleAddMoreShirtsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      await onShirtDrop(files);
+      e.target.value = ""; // reset so the same file can be selected again
+    }
+  }
+  async function handleAddMorePantsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      await onPantsDrop(files);
+      e.target.value = ""; // reset so the same file can be selected again
+    }
+  }
+
+  // Display the selected shirt
   function selectShirt(selectedShirt: { file: File; url: string }) {
     setDisplayedShirt(selectedShirt);
   }
 
+  // Display the selected shirt
   function selectPants(selectedPants: { file: File; url: string }) {
     setDisplayedPants(selectedPants);
   }
-
 
   // Function to trigger alert of a successful upload
   function triggerAlert() {
@@ -236,6 +261,20 @@ export default function Home() {
                         }
                       </div>
                     </div>
+                    <button
+                      onClick={handleAddMoreShirtsClick}
+                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                    >
+                      Add More Shirts
+                    </button>
+                    <input
+                      type="file"
+                      multiple
+                      accept=".png,.jpg,.jpeg"
+                      ref={addMoreShirtInputRef}
+                      style={{ display: "none" }}
+                      onChange={handleAddMoreShirtsChange}
+                    />
                   </>
                 )
               }
@@ -275,8 +314,23 @@ export default function Home() {
                             </div>
                           ))
                         }
+
                       </div>
                     </div>
+                    <button
+                      onClick={handleAddMorePantsClick}
+                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                    >
+                      Add More Pants
+                    </button>
+                    <input
+                      type="file"
+                      multiple
+                      accept=".png,.jpg,.jpeg"
+                      ref={addMorePantsInputRef}
+                      style={{ display: "none" }}
+                      onChange={handleAddMorePantsChange}
+                    />
                   </>
                 )
               }
