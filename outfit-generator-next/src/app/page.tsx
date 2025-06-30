@@ -3,8 +3,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
 import { useDropzone } from "react-dropzone";
-import { motion, AnimatePresence, acceleratedValues } from "framer-motion";
-import { url } from "inspector";
+import { motion, AnimatePresence } from "framer-motion";
 
 // TODO:
 
@@ -92,7 +91,7 @@ export default function Home() {
     if (shirts.length > 0 && pants.length > 0) {
       randomizeOutfit();
     }
-  }, [shirts, pants]);
+  }, [shirts, pants, randomizeOutfit]);
 
   // Shirt Dropzone Logic
   const onShirtDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -147,37 +146,37 @@ export default function Home() {
 
   // Shirt Dropzone Settings
   const { getRootProps: getShirtRootProps,
-    getInputProps: getShirtInputProps,
-    isDragActive: isDragActiveShirt } = useDropzone({
-      // Multiple allows user to upload multiple files at once
-      multiple: true,
+    getInputProps: getShirtInputProps
+  } = useDropzone({
+    // Multiple allows user to upload multiple files at once
+    multiple: true,
 
-      // onDrop is the function that is called when the user drops a file
-      onDrop: onShirtDrop,
+    // onDrop is the function that is called when the user drops a file
+    onDrop: onShirtDrop,
 
-      // File validation for only png and jpeg files
-      accept: {
-        "image/png": [".png"],
-        "image/jpeg": [".jpg", ".jpeg"],
-      },
-    });
+    // File validation for only png and jpeg files
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+    },
+  });
 
   // Pants Dropzone Settings
   const { getRootProps: getPantsRootProps,
-    getInputProps: getPantsInputProps,
-    isDragActive: isDragActivePants } = useDropzone({
-      // Multiple allows user to upload multiple files at once
-      multiple: true,
+    getInputProps: getPantsInputProps
+  } = useDropzone({
+    // Multiple allows user to upload multiple files at once
+    multiple: true,
 
-      // onDrop is the function that is called when the user drops a file
-      onDrop: onPantsDrop,
+    // onDrop is the function that is called when the user drops a file
+    onDrop: onPantsDrop,
 
-      // File validation for only png and jpeg files
-      accept: {
-        "image/png": [".png"],
-        "image/jpeg": [".jpg", ".jpeg"],
-      },
-    });
+    // File validation for only png and jpeg files
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+    },
+  });
 
   return (
     <>
