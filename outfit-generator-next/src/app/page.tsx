@@ -73,18 +73,14 @@ export default function Home() {
   }
 
   // Function to generate random outfits
-  function randomizeOutfit() {
-    // Check if shirts and pants were uploaded
+  const randomizeOutfit = useCallback(() => {
     if (shirts.length > 0 && pants.length > 0) {
-      // Randomly pick an index from shirts/pants array
       const shirtIndex = Math.floor(Math.random() * shirts.length);
       const pantsIndex = Math.floor(Math.random() * pants.length);
-
-      // Call setDisplayedShirt and setDisplayedPants
       setDisplayedShirt(shirts[shirtIndex]);
       setDisplayedPants(pants[pantsIndex]);
     }
-  }
+  }, [shirts, pants]);
 
   // When shirts and pants have been uploaded, post a randomly generated outfit on clothes container
   useEffect(() => {
