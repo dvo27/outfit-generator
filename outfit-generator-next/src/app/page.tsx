@@ -33,6 +33,21 @@ export default function Home() {
   const addMoreShirtInputRef = useRef<HTMLInputElement>(null);
   const addMorePantsInputRef = useRef<HTMLInputElement>(null);
 
+  function randomizeShirtClick() {
+    if (shirts.length > 0) {
+      const shirtIndex = Math.floor(Math.random() * shirts.length);
+      setDisplayedShirt(shirts[shirtIndex])
+    }
+  }
+
+  function randomizePantsClick() {
+    console.log('test')
+    if (pants.length > 0) {
+      const pantsIndex = Math.floor(Math.random() * pants.length);
+      setDisplayedPants(pants[pantsIndex])
+    }
+  }
+
   function handleAddMoreShirtsClick() {
     addMoreShirtInputRef.current?.click();
   }
@@ -61,7 +76,7 @@ export default function Home() {
     setDisplayedShirt(selectedShirt);
   }
 
-  // Display the selected shirt
+  // Display the selected pants
   function selectPants(selectedPants: { file: File; url: string }) {
     setDisplayedPants(selectedPants);
   }
@@ -334,7 +349,7 @@ export default function Home() {
         </div>
 
         {/* Right Side */}
-        <div className="right_side w-1/2 border-2 border-blue-500 flex flex-col items-center">
+        <div className="right_side w-1/2 border-2 border-blue-500 flex flex-col items-center justify-center">
 
           {/* Clothes Display Section */}
           <div className="clothes_container">
@@ -342,14 +357,29 @@ export default function Home() {
               <>
                 <div className="shirt_container">
                   {displayedShirt ? (
-                    <Image src={displayedShirt.url} alt="Randomly Selected Shirt" width={200} height={200} />
+                    <Image 
+                      src={displayedShirt.url} 
+                      alt="Randomly Selected Shirt" 
+                      width={200} 
+                      height={200} 
+                      className="cursor-pointer hover:scale-105 transition-transform"
+                      onClick={randomizeShirtClick}
+                      title="Click to randomize shirt"
+                      />
                   ) : (
                     <h1>Shirt</h1>
                   )}
                 </div>
                 <div className="pants_container">
                   {displayedPants ? (
-                    <Image src={displayedPants.url} alt="Randomly Selected Pants" width={200} height={200} />
+                    <Image src={displayedPants.url} 
+                      alt="Randomly Selected Pants" 
+                      width={200} 
+                      height={200}
+                      className="cursor-pointer hover:scale-105 transition-transform"
+                      onClick={randomizePantsClick}
+                      title="Click to randomize pants"
+                      />
                   ) : (
                     <h1>Pants</h1>
                   )}
