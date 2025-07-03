@@ -4,13 +4,13 @@ import Image from "next/image";
 import imageCompression from "browser-image-compression";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSession, signOut, signIn } from "next-auth/react";
 
 // TODO:
 
 // High Priority:
 // - Add a way for users to save generated outfits to a database
 // - Progress/Loading animation while uploading files
-// - Add a way to remove shirts and pants
 
 // Medium Priority:
 // - Find a way to remove background off user uploaded pictures
@@ -27,6 +27,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // - Add onboarding feature?
 
 export default function Home() {
+  const { data: session, status } = useSession();
   const [shirts, inputShirts] = useState<{ file: File; url: string }[]>([]);
   const [pants, inputPants] = useState<{ file: File; url: string }[]>([]);
   const [displayedShirt, setDisplayedShirt] = useState<{ file: File; url: string } | null>(null);
@@ -34,6 +35,7 @@ export default function Home() {
   const [showAlert, setShowAlert] = useState(false);
   const addMoreShirtInputRef = useRef<HTMLInputElement>(null);
   const addMorePantsInputRef = useRef<HTMLInputElement>(null);
+
 
   // Functions to handle clothes deletion
   function removeShirt(index: number) {
@@ -63,7 +65,6 @@ export default function Home() {
       return newArr;
     })
   }
-
 
 
   // Functions to display a random shirt/pant onClick
@@ -107,6 +108,7 @@ export default function Home() {
     }
   }
 
+
   // Functions to display a selected shirt/pants from left-side
   function selectShirt(selectedShirt: { file: File; url: string }) {
     setDisplayedShirt(selectedShirt);
@@ -116,11 +118,13 @@ export default function Home() {
     setDisplayedPants(selectedPants);
   }
 
+
   // Function to trigger alert of a successful upload
   function triggerAlert() {
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 2000)
   }
+
 
   // Function to generate random outfits
   const randomizeOutfit = useCallback(() => {
@@ -138,6 +142,7 @@ export default function Home() {
       randomizeOutfit();
     }
   }, [shirts, pants, randomizeOutfit]);
+
 
   // Shirt/Pants Dropzone Logic
   const onShirtDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -222,17 +227,75 @@ export default function Home() {
     },
   });
 
+  // Show loading state
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-xl">Loading...</div>
+      </div>
+    );
+  }
+
+  // Show sign-in page if not authenticated
+  if (status === "unauthenticated") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Welcome to Alphet Generator
+            </h2>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              Please sign in to continue
+            </p>
+          </div>
+          <div className="mt-8 space-y-6">
+            <button
+              onClick={() => signIn("google")}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Sign in with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Page:
   return (
     <>
       {/* Header */}
       <header className="flex flex-col items-center mb-4">
-        <h1>
-          Alphet Generator
-        </h1>
-        <h2>
-          By: Daniel Vo
-        </h2>
+        <div className="flex items-center justify-between w-full max-w-4xl px-4">
+          {/* Title */}
+          <div>
+            <h1>Alphet Generator</h1>
+            <h2>By: Daniel Vo</h2>
+          </div>
+
+          {/* Display user's name and profile picture and sign out button */}
+          <div className="flex items-center gap-4">
+            {session?.user?.image && (
+              <Image
+                src={session.user.image}
+                alt="Profile"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+            )}
+            <div>
+              <p className="text-sm font-medium">{session?.user?.name}</p>
+              <button
+                onClick={() => signOut()}
+                className="text-xs text-gray-500 hover:text-gray-700"
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* Button Container */}
@@ -306,7 +369,7 @@ export default function Home() {
                                 onClick={e => { e.stopPropagation(); removeShirt(index); }}
                                 title="Remove shirt"
                               >
-                                ✕
+                                X
                               </button>
                               <Image src={shirt.url} alt="Shirt" width={100} height={100} />
                             </div>
