@@ -297,7 +297,7 @@ export default function Home() {
                             <div
                               key={index}
                               onClick={() => selectShirt(shirt)}
-                              className="cursor-pointer hover:scale-110 transition-all duration-200"
+                              className="relative group cursor-pointer hover:scale-110 transition-all duration-200"
                             >
                               {/* Remove button */}
                               <button
@@ -361,7 +361,7 @@ export default function Home() {
                             <div
                               key={index}
                               onClick={() => selectPants(pants)}
-                              className="cursor-pointer hover:opacity-80 hover:scale-110 transition-all duration-200"
+                              className="relative group cursor-pointer hover:opacity-80 hover:scale-110 transition-all duration-200"
                             >
                               {/* Remove button */}
                               <button
@@ -370,7 +370,7 @@ export default function Home() {
                                 onClick={e => { e.stopPropagation(); removePants(index); }}
                                 title="Remove shirt"
                               >
-                                ✕
+                                X
                               </button>
                               <Image src={pants.url} alt="Pants" width={100} height={100} />
                             </div>
