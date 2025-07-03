@@ -28,7 +28,7 @@ model Session {
   sessionToken   String   @unique
   userId         String
   expires        DateTime
- // relates the Session's userId to a User id attribute  
+// relates the Session's userId to a User id attribute  
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
