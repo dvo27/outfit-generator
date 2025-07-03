@@ -8,17 +8,19 @@ import { motion, AnimatePresence } from "framer-motion";
 // TODO:
 
 // High Priority:
-// - Progress/Loading animation while uploading files
-// - Implement changing shirts and pants functionality
-// - Change site font
-// - Add a way for users to add new shirts and pants once initial upload
 // - Add a way for users to save generated outfits to a database
+// - Progress/Loading animation while uploading files
+// - Add a way to remove shirts and pants
 
 // Medium Priority:
+// - Find a way to remove background off user uploaded pictures
+// - Add outfit suggestions depending on weather -- AI
+
+// Low Priorities:
 // - Add an opening animation that presents my name and project title that has bottom and 
 //   top half sliding up revealing the main page
-// - Add a way to remove shirts and pants
-// - Add outfit suggestions depending on weather -- AI
+// - Revise UI of the site
+// - Change site font
 
 // Potentials:
 // - Schedule outfits for a travel duration?
@@ -33,6 +35,38 @@ export default function Home() {
   const addMoreShirtInputRef = useRef<HTMLInputElement>(null);
   const addMorePantsInputRef = useRef<HTMLInputElement>(null);
 
+  // Functions to handle clothes deletion
+  function removeShirt(index: number) {
+    inputShirts(prev => {
+      const toRemove = prev[index];
+      if (toRemove) URL.revokeObjectURL(toRemove.url); // Release reference to object
+
+      // Update array without the deleted item
+      const newArr = prev.filter((_, i) => i !== index);
+
+      // If the currently displayed item is the one to delete, replace it
+      if (displayedShirt && toRemove && displayedShirt.url == displayedShirt.url) {
+        setDisplayedShirt(newArr.length > 0 ? newArr[0] : null);
+      }
+      return newArr;
+    })
+  }
+
+  function removePants(index: number) {
+    inputPants(prev => {
+      const toRemove = prev[index];
+      if (toRemove) URL.revokeObjectURL(toRemove.url); // Release reference to object
+      const newArr = prev.filter((_, i) => i !== index);
+      if (displayedPants && toRemove && displayedPants.url == displayedPants.url) {
+        setDisplayedPants(newArr.length > 0 ? newArr[0] : null);
+      }
+      return newArr;
+    })
+  }
+
+
+
+  // Functions to display a random shirt/pant onClick
   function randomizeShirtClick() {
     if (shirts.length > 0) {
       const shirtIndex = Math.floor(Math.random() * shirts.length);
@@ -48,6 +82,8 @@ export default function Home() {
     }
   }
 
+
+  // Functions to handle adding new clothes after initial upload onClick
   function handleAddMoreShirtsClick() {
     addMoreShirtInputRef.current?.click();
   }
@@ -71,12 +107,11 @@ export default function Home() {
     }
   }
 
-  // Display the selected shirt
+  // Functions to display a selected shirt/pants from left-side
   function selectShirt(selectedShirt: { file: File; url: string }) {
     setDisplayedShirt(selectedShirt);
   }
 
-  // Display the selected pants
   function selectPants(selectedPants: { file: File; url: string }) {
     setDisplayedPants(selectedPants);
   }
@@ -104,7 +139,7 @@ export default function Home() {
     }
   }, [shirts, pants, randomizeOutfit]);
 
-  // Shirt Dropzone Logic
+  // Shirt/Pants Dropzone Logic
   const onShirtDrop = useCallback(async (acceptedFiles: File[]) => {
     // Compress images using browser-image-compression library on upload
     const options = {
@@ -130,7 +165,6 @@ export default function Home() {
     triggerAlert()
   }, []);
 
-  // Pants Dropzone Logic
   const onPantsDrop = useCallback(async (acceptedFiles: File[]) => {
     // Compress images using browser-image-compression library on upload
     const options = {
@@ -155,7 +189,7 @@ export default function Home() {
     triggerAlert()
   }, []);
 
-  // Shirt Dropzone Settings
+  // Shirt/Pants Dropzone Settings
   const { getRootProps: getShirtRootProps,
     getInputProps: getShirtInputProps
   } = useDropzone({
@@ -172,7 +206,6 @@ export default function Home() {
     },
   });
 
-  // Pants Dropzone Settings
   const { getRootProps: getPantsRootProps,
     getInputProps: getPantsInputProps
   } = useDropzone({
@@ -189,6 +222,7 @@ export default function Home() {
     },
   });
 
+  // Page:
   return (
     <>
       {/* Header */}
@@ -265,6 +299,15 @@ export default function Home() {
                               onClick={() => selectShirt(shirt)}
                               className="cursor-pointer hover:scale-110 transition-all duration-200"
                             >
+                              {/* Remove button */}
+                              <button
+                                type="button"
+                                className="absolute top-1 right-1 z-10 bg-white bg-opacity-80 rounded-full px-2 py-0.5 text-xs text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                                onClick={e => { e.stopPropagation(); removeShirt(index); }}
+                                title="Remove shirt"
+                              >
+                                ✕
+                              </button>
                               <Image src={shirt.url} alt="Shirt" width={100} height={100} />
                             </div>
                           ))
@@ -273,7 +316,7 @@ export default function Home() {
                     </div>
                     <button
                       onClick={handleAddMoreShirtsClick}
-                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                      className="mt-2 mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                     >
                       Add More Shirts
                     </button>
@@ -320,6 +363,15 @@ export default function Home() {
                               onClick={() => selectPants(pants)}
                               className="cursor-pointer hover:opacity-80 hover:scale-110 transition-all duration-200"
                             >
+                              {/* Remove button */}
+                              <button
+                                type="button"
+                                className="absolute top-1 right-1 z-10 bg-white bg-opacity-80 rounded-full px-2 py-0.5 text-xs text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                                onClick={e => { e.stopPropagation(); removePants(index); }}
+                                title="Remove shirt"
+                              >
+                                ✕
+                              </button>
                               <Image src={pants.url} alt="Pants" width={100} height={100} />
                             </div>
                           ))
@@ -329,7 +381,7 @@ export default function Home() {
                     </div>
                     <button
                       onClick={handleAddMorePantsClick}
-                      className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                      className="mt-2 mb-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                     >
                       Add More Pants
                     </button>
@@ -357,29 +409,29 @@ export default function Home() {
               <>
                 <div className="shirt_container">
                   {displayedShirt ? (
-                    <Image 
-                      src={displayedShirt.url} 
-                      alt="Randomly Selected Shirt" 
-                      width={200} 
-                      height={200} 
+                    <Image
+                      src={displayedShirt.url}
+                      alt="Randomly Selected Shirt"
+                      width={200}
+                      height={200}
                       className="cursor-pointer hover:scale-105 transition-transform"
                       onClick={randomizeShirtClick}
                       title="Click to randomize shirt"
-                      />
+                    />
                   ) : (
                     <h1>Shirt</h1>
                   )}
                 </div>
                 <div className="pants_container">
                   {displayedPants ? (
-                    <Image src={displayedPants.url} 
-                      alt="Randomly Selected Pants" 
-                      width={200} 
+                    <Image src={displayedPants.url}
+                      alt="Randomly Selected Pants"
+                      width={200}
                       height={200}
                       className="cursor-pointer hover:scale-105 transition-transform"
                       onClick={randomizePantsClick}
                       title="Click to randomize pants"
-                      />
+                    />
                   ) : (
                     <h1>Pants</h1>
                   )}
