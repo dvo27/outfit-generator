@@ -9,9 +9,11 @@ import { useSession, signOut, signIn } from "next-auth/react";
 // TODO:
 
 // High Priority:
+// - Revise UI of the site
+// - Change site font
 // - Add a way for users to save generated outfits to a database
-//    - Set up Supabase for production version cloud database
-//    - Check Posgresql server
+//    - Now need to figure out how to save outfits themselves
+//    - We have account creation and authentication to the backend
 // - Progress/Loading animation while uploading files
 
 // Medium Priority:
@@ -21,8 +23,6 @@ import { useSession, signOut, signIn } from "next-auth/react";
 // Low Priorities:
 // - Add an opening animation that presents my name and project title that has bottom and 
 //   top half sliding up revealing the main page
-// - Revise UI of the site
-// - Change site font
 
 // Potentials:
 // - Schedule outfits for a travel duration?
