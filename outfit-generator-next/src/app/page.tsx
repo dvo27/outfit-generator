@@ -10,6 +10,8 @@ import { useSession, signOut, signIn } from "next-auth/react";
 
 // High Priority:
 // - Add a way for users to save generated outfits to a database
+//    - Set up Supabase for production version cloud database
+//    - Check Posgresql server
 // - Progress/Loading animation while uploading files
 
 // Medium Priority:
