@@ -336,10 +336,10 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Main Container with left and right side columns*/}
-      <div className="main_container flex mb-4">
+      <div className="main_container flex mb-4 w-full gap-4 min-h-[600px]">
 
         {/* Left Side */}
-        <div className="left_side w-1/2 border-2 border-red-500 flex flex-col items-center text-center">
+        <div className="left_side basis-1/2 min-w-0 overflow-y-auto border-2 border-red-500 flex flex-col items-center text-center">
 
           {/* Clothes Upload/Selector Section */}
           <div className="clothes_selector flex flex-col gap-4 w-full px-4">
@@ -475,7 +475,7 @@ export default function Home() {
         </div>
 
         {/* Right Side */}
-        <div className="right_side w-1/2 border-2 border-blue-500 flex flex-col items-center justify-center">
+        <div className="right_side basis-1/2 min-w-0 overflow-y-auto border-2 border-blue-500 flex flex-col items-center justify-center">
 
           {/* Clothes Display Section */}
           <div className="clothes_container">

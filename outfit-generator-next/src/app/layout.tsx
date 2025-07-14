@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/AppSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const inter = Inter({
   subsets: ['latin']
@@ -37,10 +38,14 @@ export default function RootLayout({
         className={`${inter.className} antialiased`}
       >
         <Providers>
-          <div className="flex min-h-screen">
-            <Sidebar />
-            <main className="flex-1">{children}</main>
-          </div>
+          <SidebarProvider>
+            <div className="flex min-h-screen gap-0">
+              <Sidebar />
+              <main className="flex-1 lg:ml-0 transition-all duration-300 p-0 m-0">
+                {children}
+              </main>
+            </div>
+          </SidebarProvider>
         </Providers>
       </body>
     </html>
