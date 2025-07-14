@@ -10,19 +10,28 @@ import { useSession, signOut, signIn } from "next-auth/react";
 
 // High Priority:
 // - Revise UI of the site
-// - Change site font
+//    - Sidebar
+//        - Logo and "Alphet"
+//        - Pages:
+//          - Generator/Home
+//          - Closet
+//          - Saved Outfits
+//        - Settings  
+//        - User display area with signout
+//    - Header Bar
+//        - Display page name
+//    - Main Content Areas (clothes display and container)
 // - Add a way for users to save generated outfits to a database
 //    - Now need to figure out how to save outfits themselves
-//    - We have account creation and authentication to the backend
-// - Progress/Loading animation while uploading files
 
 // Medium Priority:
 // - Find a way to remove background off user uploaded pictures
-// - Add outfit suggestions depending on weather -- AI
+// - Progress/Loading animation while uploading files
 
 // Low Priorities:
 // - Add an opening animation that presents my name and project title that has bottom and 
 //   top half sliding up revealing the main page
+// - Add outfit suggestions depending on weather -- AI
 
 // Potentials:
 // - Schedule outfits for a travel duration?
