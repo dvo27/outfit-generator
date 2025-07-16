@@ -10,17 +10,8 @@ import { useSession, signOut, signIn } from "next-auth/react";
 
 // High Priority:
 // - Revise UI of the site
-//    - Sidebar
-//        - Logo and "Alphet"
-//        - Pages:
-//          - Generator/Home
-//          - Closet
-//          - Saved Outfits
-//        - Settings  
-//        - User display area with signout
-//    - Header Bar
-//        - Display page name
 //    - Main Content Areas (clothes display and container)
+//        - Error when both clothes uploaded
 // - Add a way for users to save generated outfits to a database
 //    - Now need to figure out how to save outfits themselves
 
@@ -336,10 +327,10 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Main Container with left and right side columns*/}
-      <div className="main_container flex mb-4 w-full gap-4 min-h-[600px]">
+      <div className="main_container flex p-4 w-full gap-4 h-[calc(100vh-200px)]">
 
         {/* Left Side */}
-        <div className="left_side basis-1/2 min-w-0 overflow-y-auto border-2 border-red-500 flex flex-col items-center text-center">
+        <div className="left_side basis-1/2 min-w-0 overflow-y-auto border-2 border-red-500 flex flex-col items-center text-center h-full">
 
           {/* Clothes Upload/Selector Section */}
           <div className="clothes_selector flex flex-col gap-4 w-full px-4">
@@ -475,7 +466,7 @@ export default function Home() {
         </div>
 
         {/* Right Side */}
-        <div className="right_side basis-1/2 min-w-0 overflow-y-auto border-2 border-blue-500 flex flex-col items-center justify-center">
+        <div className="right_side basis-1/2 min-w-0 overflow-y-auto border-2 border-blue-500 flex flex-col items-center justify-center h-full">
 
           {/* Clothes Display Section */}
           <div className="clothes_container">

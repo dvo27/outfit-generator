@@ -35,13 +35,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.className} antialiased m-0 p-0`}
       >
         <Providers>
           <SidebarProvider>
-            <div className="flex min-h-screen gap-0">
+            <div className="flex min-h-screen w-full gap-0 overflow-hidden">
               <Sidebar />
-              <main className="flex-1 lg:ml-0 transition-all duration-300 p-0 m-0">
+              <main className="flex-1 w-full lg:ml-0 transition-all duration-300 p-0 m-0">
                 {children}
               </main>
             </div>
