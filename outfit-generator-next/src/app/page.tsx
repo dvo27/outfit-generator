@@ -267,41 +267,8 @@ export default function Home() {
   // Page:
   return (
     <>
-      {/* Header */}
-      <header className="flex flex-col items-center mb-4">
-        <div className="flex items-center justify-between w-full max-w-4xl px-4">
-          {/* Title */}
-          <div>
-            <h1>Alphet Generator</h1>
-            <h2>By: Daniel Vo</h2>
-          </div>
-
-          {/* Display user's name and profile picture and sign out button */}
-          <div className="flex items-center gap-4">
-            {session?.user?.image && (
-              <Image
-                src={session.user.image}
-                alt="Profile"
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-            )}
-            <div>
-              <p className="text-sm font-medium">{session?.user?.name}</p>
-              <button
-                onClick={() => signOut()}
-                className="text-xs text-gray-500 hover:text-gray-700"
-              >
-                Sign out
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Button Container */}
-      <div className="button_container flex justify-center mb-4">
+      <div className="button_container flex justify-center m-5">
         <button id="random_button" onClick={randomizeOutfit}>
           <Image src="/button.png" alt="Random" width={100} height={100} />
         </button>
