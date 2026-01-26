@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,42 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Keeps track of every user entity and its attributes
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String?
-  accounts       Account[]  // List of OAuth accounts linked to a user
-  sessions       Session[]  // Keeps track of sessions for a user for persistent login
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 }
 
-// Keeps track of session--tracks times user logs in and stays logged in across devices or page refreshes
-// 1:n relationship with User
 model Session {
-  id             String   @id @default(cuid())
-  sessionToken   String   @unique
-  userId         String
-  expires        DateTime
-// relates the Session's userId to a User id attribute  
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
-  id String @id @default(cuid())
-  userId             String
-  type               String // OAuth type (2.0, etc)
-  provider           String // OAuth provider (ex. Google)
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
-  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade) // Tracks user to their account
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }

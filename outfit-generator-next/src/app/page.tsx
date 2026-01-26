@@ -8,6 +8,7 @@ import { useSession, signOut, signIn } from "next-auth/react";
 
 // TODO:
 
+
 // High Priority:
 // - Revise UI of the site
 //    - Main Content Areas (clothes display and container)
